@@ -1,0 +1,2 @@
+# AsteriskDashboard
+AsteriskDashboard for FreePBX
