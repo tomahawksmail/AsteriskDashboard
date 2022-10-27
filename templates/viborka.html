@@ -1,0 +1,176 @@
+{% extends "base.html" %}
+{% block title %}{{ version }}{% endblock %}
+
+{% block head %}
+    <script src='../static/js/Chart.min.js'></script>
+{% endblock %}
+
+
+{% block content %}
+
+    <form action="" method="post">
+        <style>
+
+            .form {
+                width: 100%;
+            }
+
+            table.toptable {
+                text-decoration: none;
+                border-collapse: collapse;
+                width: 40%;
+                text-align: center;
+            }
+
+
+            table.tableclass {
+                border-collapse: collapse;
+                width: 100%;
+                text-align: center;
+                border: 1px dotted;
+                border-color: #6a22e1;
+            }
+
+
+            table.tableclass thead th {
+                position: sticky;
+                top: 0;
+
+            }
+
+            table.tableclass thead th:first-child {
+                left: 0;
+                z-index: 1;
+            }
+
+            table.tableclass th {
+
+                font-weight: normal;
+                font-size: 16px;
+                color: #fff;
+                background-color: #6a22e1;
+
+
+            }
+
+            table.tableclass td {
+                border: 1px dotted;
+                border-color: #6a22e1;
+
+            {#border: 1px solid #636363;#}
+
+            }
+
+
+            table.tableclass td, table.tableclass th {
+                padding: 1px 0px;
+                line-height: 12px;
+                vertical-align: middle;
+            {#border: 1px solid #11771b;#}
+
+
+            }
+
+            table.tableclass tr:hover {
+                border: 1px solid #636363;
+                background-color: #f9fafb
+            }
+
+            table.tableclass tr:hover td {
+                color: #fff;
+                cursor: default;
+                background-color: #3664A3;
+            }
+
+
+        </style>
+
+        <div>
+            <table class="toptable">
+
+                <tr>
+                    <td><input type="date" name="calldate" id="1" class="form"></td>
+                    <td><input type="time" name="timefrom" id="1" class="form"></td>
+                    <td><input type="time" name="timeto" id="1" class="form"></td>
+                    <td><select name="type_" class="form">
+
+                        <option>Входящие</option>
+                        <option>Исходящие</option>
+
+                    </select></td>
+
+
+                </tr>
+                <tr>
+                    <td colspan="3"><input type="text" name="tSource" placeholder="Вызывающий абонент"
+                                           class="form"></td>
+
+                    <td><select name="direction" class="form">#}
+                        <option>Все</option>
+                        <option>СМП</option>
+                        <option>Инфоцентр</option>
+                        <option>Оценка качества</option>
+                    </select></td>
+
+                </tr>
+                <tr>
+                    <td colspan="3"><input type="text" name="tDistenation" placeholder="Вызываемый абонент"
+                                           class="form"></td>
+                    <td><input type="submit" value="Выбрать" class="form"></td>
+                </tr>
+
+            </table>
+            <h6 class="card-title">{{ message1 }}</h6>
+            <h6 class="card-title">{{ message2 }}</h6>
+
+
+            <table class="tableclass">
+                <thead>
+                <tr>
+                    <th>Время</th>
+                    <th>Вызывающий абонент</th>
+                    <th>Вызываемый абонент</th>
+                    <th>Номер</th>
+                    <th>Тип</th>
+                    <th>Полная длительность</th>
+                    <th>Длительность разговора</th>
+                    <th>Время ожидания</th>
+                    <th>Файл</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for item in data %}
+
+
+                    <tr>
+                        <td align="center">{{ item[0] }}</td>
+                        <td align="center">{{ item[1] }}</td>
+                        <td align="center">{{ item[2] }}</td>
+                        <td align="center">{{ item[3] }}</td>
+                        <td align="center">{{ item[4] }}</td>
+                        <td align="center">{{ item[5] }}</td>
+                        <td align="center">{{ item[6] }}</td>
+                        <td align="center">{{ item[7] }}</td>
+
+                        <td width=45%>
+                            <audio src="{{ 'http://192.168.3.20/media/'+(item[8].split('-')[3])[0:4]+'/'+(item[8].split('-')[3])[4:6]+'/'+(item[8].split('-')[3])[6:8]+'/'+item[8] }}"
+                                   controls preload="metadata"
+                                   style="height:23px; width:100%;"></audio>
+                        </td>
+
+
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
+        </div>
+    </form>
+
+
+
+{% endblock %}
+
+{% block footer %}
+
+{% endblock %}

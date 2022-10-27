@@ -1,0 +1,154 @@
+{% extends "base.html" %}
+{% block title %}{{ version }}{% endblock %}
+
+{% block head %}
+    <script src='../static/js/Chart.min.js'></script>
+{% endblock %}
+
+
+{% block content %}
+    <form action="" method="post">
+        <style>
+
+            .form {
+                width: 100%;
+            }
+
+            table.toptable {
+                text-decoration: none;
+                border-collapse: collapse;
+                width: 60%;
+                text-align: center;
+            }
+
+
+            table.tableclass {
+                border-collapse: collapse;
+                width: 100%;
+                text-align: center;
+                border: 1px dotted;
+                border-color: #6a22e1;
+            }
+
+
+            table.tableclass thead th {
+                position: sticky;
+                top: 0;
+
+            }
+
+            table.tableclass thead th:first-child {
+                left: 0;
+                z-index: 1;
+            }
+
+            table.tableclass th {
+
+                font-weight: normal;
+                font-size: 16px;
+                color: #fff;
+                background-color: #6a22e1;
+
+
+            }
+
+            table.tableclass td {
+                border: 1px dotted;
+                border-color: #6a22e1;
+
+            {#border: 1px solid #636363;#}
+
+            }
+
+
+            table.tableclass td, table.tableclass th {
+                padding: 1px 0px;
+                line-height: 12px;
+                vertical-align: middle;
+
+
+            }
+
+            table.tableclass tr:hover {
+                border: 1px solid #636363;
+                background-color: #f9fafb
+            }
+
+            table.tableclass tr:hover td {
+                color: #fff;
+                cursor: default;
+                background-color: #3664A3;
+            }
+
+
+        </style>
+        <div>
+            <table class="toptable">
+
+
+                <tr>
+                    <td>Дата с&nbsp;<input type="date" name="calldate_from" id="1" style="width:60%"></td>
+                    <td>Дата по&nbsp;<input type="date" name="calldate_to" id="1" style="width:60%"></td>
+                    <td><input type="submit" value="Получить входящие" name="submit_btn_in"
+                               style="width:100%; align:center"></td>
+                    <td><input type="submit" value="Получить исходящие" name="submit_btn_out"
+                               style="width:100%; align:center"></td>
+                    <td><input type="submit" value="Экспорт входящих" name="export_to_csv_in"
+                               style="width:100%; align:center"></td>
+                    <td><input type="submit" value="Экспорт исходящих" name="export_to_csv_out"
+                               style="width:100%; align:center"></td>
+
+
+                </tr>
+            </table>
+
+
+            <table class="tableclass">
+            <thead>
+                <tr>
+                    <th>Дата и время</th>
+                    <th>Номер абонента</th>
+                    <th>Номер оператора</th>
+                    <th>Полная длительность</th>
+                    <th>Длительность разговора</th>
+                    <th>Время ожидания</th>
+                    <th>Внешний номер</th>
+                </tr>
+                </thead>
+                {% for item in data_in %}
+
+                    <tr>
+                        <td align="center">{{ item[0] }}</td>
+                        <td align="center">{{ item[1] }}</td>
+                        <td align="center">{{ item[2] }}</td>
+                        <td align="center">{{ item[3] }}</td>
+                        <td align="center">{{ item[4] }}</td>
+                        <td align="center">{{ item[5] }}</td>
+                        <td align="center">{{ item[6] }}</td>
+
+                    </tr>
+                {% endfor %}
+
+                {% for item in data_out %}
+
+                    <tr>
+                        <td align="center">{{ item[0] }}</td>
+                        <td align="center">{{ item[3] }}</td>
+                        <td align="center">{{ item[1] }}</td>
+                        <td align="center"></td>
+                        <td align="center">{{ item[4] }}</td>
+                        <td align="center">{{ item[5] }}</td>
+                        <td align="center">{{ item[2] }}</td>
+
+                    </tr>
+                {% endfor %}
+            </table>
+
+
+        </div>
+    </form>
+{% endblock %}
+
+{% block footer %}
+
+{% endblock %}

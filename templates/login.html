@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Log in form</title>
+    <link href="/static/css/login.css" rel="stylesheet">
+</head>
+
+<body>
+{% block content %}
+<div class="form">
+    <form method="post" action="login">
+        <h1>Asterisk Dashboard</h1>
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <ul class=flashes >
+            {% for message in messages %}
+            <h3>{{ message | safe }}</h3>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        {% endwith %}
+        <h2>&nbsp;</h2>
+        <input type="text" placeholder="Имя" name="user" autofocus><br>
+        <h2>&nbsp;</h2>
+        <input type="password" placeholder="Пароль" name="password"><br>
+        <h2>&nbsp;</h2>
+        <input type="submit" value="Войти" name="submit"><br>
+        <h2>&nbsp;</h2>
+        <h2>Версия системы "{{version}}" &nbsp;</h2>
+        <h4></h4>
+        <h4><a href="mailto:tomahawksmail@gmail.com" style="color: white">Задавайте вопросы по электронной почте</a></h4>
+    </form>
+</div>
+{% endblock %}
+</body>
+</html>

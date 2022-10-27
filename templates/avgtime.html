@@ -1,0 +1,230 @@
+{% extends "base.html" %}
+{% block title %}{{ version }}{% endblock %}
+
+{% block head %}
+    <script src='../static/js/Chart.min.js'></script>
+
+
+{% endblock %}
+
+
+{% block content %}
+
+    <form action="" method="post">
+
+        <style>
+
+            #myProgress {
+                width: 100%;
+                background-color: #222a42;
+            }
+
+            #myBar {
+                width: 1%;
+                height: 5px;
+                background-color: #6A22FF;
+            }
+
+
+            table.tableclass {
+                border-collapse: collapse;
+                width: 100%;
+                text-align: center;
+                border: 1px dotted;
+                border-color: #6a22e1;
+            }
+
+
+            table.tableclass thead th {
+                position: sticky;
+                top: 0;
+
+            }
+
+            table.tableclass thead th:first-child {
+                left: 0;
+                z-index: 1;
+            }
+
+            table.tableclass th {
+
+                font-weight: normal;
+                font-size: 16px;
+                color: #fff;
+                background-color: #6a22e1;
+
+
+            }
+
+            table.tableclass td {
+                border: 1px dotted;
+                border-color: #6a22e1;
+            }
+
+
+            table.tableclass td, table.tableclass th {
+                padding: 1px 0px;
+                line-height: 12px;
+                vertical-align: middle;
+
+
+            }
+
+            table.tableclass tr:hover {
+                border: 1px solid #636363;
+                background-color: #f9fafb
+            }
+
+            table.tableclass tr:hover td {
+                color: #fff;
+                cursor: default;
+                background-color: #3664A3;
+            }
+
+
+        </style>
+        <div class="row">
+            <div class="col-12">
+                <div class="card card-chart">
+                    <div class="card-header">
+                        <div class="row">
+                            <div class="col-sm-6 text-left">
+                                <h5 class="card-title">Усредненное время ожидания по часам</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="chart-area">
+                            <canvas id="avgtimechart"></canvas>
+                            <script>
+                                var ctx = document.getElementById('avgtimechart').getContext('2d');
+                                var avgtimechart = new Chart(ctx, {
+                                    type: 'line',
+                                    data: {
+                                        labels: [{% for item in data_avgtime %} "{{item[0]}}",  {% endfor %}],
+                                        datasets: [{
+                                            label: 'Время ожидания',
+                                            data: [{% for item in data_avgtime %} {{item[1]}}, {% endfor %}],
+                                            fill: true,
+                                            lineTension: 0.3,
+                                            backgroundColor: "rgba(75,192,192,0.4)",
+                                            borderColor: "rgba(75,192,192,1)",
+                                            borderCapStyle: 'butt',
+                                            borderDash: [],
+                                            borderDashOffset: 0.0,
+                                            borderJoinStyle: 'miter',
+                                            pointBorderColor: "rgba(75,192,192,1)",
+                                            pointBackgroundColor: "#fff",
+                                            pointBorderWidth: 1,
+                                            pointHoverRadius: 5,
+                                            pointHoverBackgroundColor: "rgba(75,192,192,1)",
+                                            pointHoverBorderColor: "rgba(220,220,220,1)",
+                                            pointHoverBorderWidth: 2,
+                                            pointRadius: 1,
+                                            pointHitRadius: 10,
+                                            spanGaps: false,
+                                            borderWidth: 1
+                                        }, {
+                                            label: 'Полное время',
+                                            data: [{% for item in data_avgtime %} {{item[2]}}, {% endfor %}],
+                                            fill: true,
+                                            lineTension: 0.3,
+                                            backgroundColor: "rgba(123, 104, 238,0.4)",
+                                            borderColor: "rgba(123, 104, 238,1)",
+                                            borderCapStyle: 'butt',
+                                            borderDash: [],
+                                            borderDashOffset: 0.0,
+                                            borderJoinStyle: 'miter',
+                                            pointBorderColor: "rgba(123, 104, 238,1)",
+                                            pointBackgroundColor: "#fff",
+                                            pointBorderWidth: 1,
+                                            pointHoverRadius: 5,
+                                            pointHoverBackgroundColor: "rgba(75,192,192,1)",
+                                            pointHoverBorderColor: "rgba(220,220,220,1)",
+                                            pointHoverBorderWidth: 2,
+                                            pointRadius: 1,
+                                            pointHitRadius: 10,
+                                            spanGaps: false,
+                                            borderWidth: 1
+                                        }]
+                                    },
+                                    options: {
+                                        responsive: true,
+                                        maintainAspectRatio: false,
+                                        layout: {
+                                            padding: {
+                                                left: 0,
+                                                right: 0,
+                                                top: 0,
+                                                bottom: 0
+                                            },
+                                            animation: {
+                                                duration: 10
+                                            }
+                                        },
+
+                                        scales: {
+                                            xAxes: [
+                                                {
+                                                    scaleLabel: {
+                                                        display: true,
+                                                        labelString: "Текущие сутки (часы)",
+                                                    },
+
+                                                }
+                                            ],
+                                            yAxes: [
+                                                {
+                                                    scaleLabel: {
+                                                        display: true,
+                                                        labelString: "Общая длительность (часы)",
+                                                    },
+
+                                                }
+                                            ],
+                                        }
+                                    }
+                                });
+                            </script>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div>
+            <table class="tableclass">
+                <thead>
+                <tr>
+
+                    <th>Час</th>
+                    <th>Время ожидания (устредненное), секунды</th>
+                    <th>Полное время (устредненное), секунды</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for item in data_avgtime %}
+
+
+                    <tr>
+
+                        <td align="center">{{ item[0] }}</td>
+                        <td align="center">{{ item[1] }}</td>
+                        <td align="center">{{ item[2] }}</td>
+
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
+        </div>
+    </form>
+
+
+
+{% endblock %}
+
+{% block footer %}
+
+{% endblock %}

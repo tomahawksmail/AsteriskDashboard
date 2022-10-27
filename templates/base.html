@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="apple-touch-icon" sizes="76x76" href="static/img/logo.png">
+    <link rel="icon" type="image/png" href="static/img/favicon.png">
+    <title>{% block title %}{% endblock %}</title>
+    <!--     Fonts and icons     -->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,600,700,800" rel="stylesheet"/>
+    <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
+    <!-- Nucleo Icons -->
+    <link href="/static/css/nucleo-icons.css" rel="stylesheet"/>
+    <!-- CSS Files -->
+    <link href="/static/css/black-dashboard.css?v=1.0.0" rel="stylesheet"/>
+    {% block head %}
+
+    {% endblock %}
+</head>
+
+<body class="">
+
+<div class="wrapper">
+    <div class="sidebar">
+        <div class="sidebar-wrapper">
+            <div class="logo">
+                <a class="simple-text logo-mini">
+                    <img src="../static/img/logo.png" alt="Profile Photo">
+                </a>
+                <a class="simple-text logo-normal">
+                    Asterisk Dashboard
+                </a>
+            </div>
+            <ul class="nav">
+                <li>
+                    <a href="index">
+                        <i class="tim-icons icon-chart-pie-36"></i>
+                        <p>Dashboard</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="viborka">
+                        <i class="tim-icons icon-atom"></i>
+                        <p>Выборка</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="masterreport">
+                        <i class="tim-icons icon-align-center"></i>
+                        <p>Отчет основной</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="missedcallstoday">
+                        <i class="tim-icons icon-align-center"></i>
+                        <p>Пропущенные</p>
+                    </a>
+                </li>
+
+
+                <li>
+                    <a href="missedstatistic">
+                        <i class="tim-icons icon-align-center"></i>
+                        <p>Статистика пропущенных</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="avgtime">
+                        <i class="tim-icons icon-time-alarm"></i>
+                        <p>Время ожидания</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="logout">
+                        <i class="tim-icons icon-user-run"></i>
+                        <p>Вход под {{session['user']}}, Выйти</p>
+                    </a>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+    <div class="main-panel">
+
+        <div class="content">
+            {% block content %}
+
+            {% endblock %}
+
+
+            {% block footer %}
+
+            {% endblock %}
+
+        </div>
+<footer class="footer">
+                <div class="container-fluid">
+                    <ul class="nav">
+                        <li class="nav-item">
+                            <a href="" class="nav-link">
+
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="javascript:void(0)" class="nav-link">
+
+                            </a>
+                        </li>
+
+                    </ul>
+                    <div class="copyright">
+                        ©
+                        <script>
+                            document.write(new Date().getFullYear())
+                        </script>
+                        Сделано с <i class="tim-icons icon-heart-2"></i> by
+                        <a href="mailto:tomahawksmail@gmail.com" style="color: #7d55d9">Tsybulskiy Maksim</a> для Клиники Святой Екатерины.
+                    </div>
+                </div>
+            </footer>
+    </div>
+</div>
+
+
+</body>
+
+</html>
